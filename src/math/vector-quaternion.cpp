@@ -21,7 +21,6 @@
 #include <sot/core/vector-quaternion.hh>
 #include <sot/core/debug.hh>
 
-using namespace std;
 using namespace dynamicgraph::sot;
 
 static const double ANGLE_MINIMUM = 0.0001;
@@ -47,7 +46,7 @@ fromMatrix( const MatrixRotation& rot )
 
   if (rr>0)
     {
-      double s = 0.5 / sqrt(rr);
+      double s = 0.5 / std::sqrt(rr);
       _x = (rotmat(2,1) - rotmat(1,2)) * s;
       _y = (rotmat(0,2) - rotmat(2,0)) * s;
       _z = (rotmat(1,0) - rotmat(0,1)) * s;
@@ -59,7 +58,7 @@ fromMatrix( const MatrixRotation& rot )
       // major diagonal is largest
       if ((d0 > d1) && (d0 > d2)) 
 	{
-	  double s = 0.5 / sqrt(1 + d0 - d1 - d2);
+	  double s = 0.5 / std::sqrt(1 + d0 - d1 - d2);
 	  _x = 0.5 * s;
 	  _y = (rotmat(0,1) + rotmat(1,0)) * s;
 	  _z = (rotmat(0,2) + rotmat(2,0)) * s;
@@ -67,7 +66,7 @@ fromMatrix( const MatrixRotation& rot )
 	} 
       else if (d1 > d2) 
 	{
-	  double s = 0.5 / sqrt(1 + d0 - d1 - d2);
+	  double s = 0.5 / std::sqrt(1 + d0 - d1 - d2);
 	  _x = (rotmat(0,1) + rotmat(1,0)) * s;
 	  _y = 0.5 * s;
 	  _z = (rotmat(1,2) + rotmat(2,1)) * s;
@@ -75,7 +74,7 @@ fromMatrix( const MatrixRotation& rot )
 	} 
       else
 	{
-	  double s = 0.5 / sqrt(1 + d0 - d1 - d2);
+	  double s = 0.5 / std::sqrt(1 + d0 - d1 - d2);
 	  _x = (rotmat(0,2) + rotmat(2,0)) * s;
 	  _y = (rotmat(1,2) + rotmat(2,1)) * s;
 	  _z = 0.5 * s;
@@ -131,7 +130,7 @@ fromVector( const VectorUTheta& ut )
 {
   sotDEBUGIN(15) ;
   
-  double theta = sqrt( ut(0)*ut(0)+ut(1)*ut(1)+ut(2)*ut(2) );
+  double theta = std::sqrt( ut(0)*ut(0)+ut(1)*ut(1)+ut(2)*ut(2) );
   double si = ::sin(theta);
   double co = ::cos(theta);
   ((dynamicgraph::Vector&)*this)(0)=ut(0)/si;

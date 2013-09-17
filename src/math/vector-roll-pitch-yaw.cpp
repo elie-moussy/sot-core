@@ -20,7 +20,7 @@
 
 #include <sot/core/vector-roll-pitch-yaw.hh>
 #include <sot/core/debug.hh>
-using namespace std;
+
 using namespace dynamicgraph::sot;
 
 
@@ -34,7 +34,7 @@ fromMatrix( const MatrixRotation& rot )
 
   ((dynamicgraph::Vector&)*this)(0) = atan2(ny,nx);
   ((dynamicgraph::Vector&)*this)(1) = atan2(-rot(2,0),
-		    sqrt(ny*ny+nx*nx));
+		    std::sqrt(ny*ny+nx*nx));
   ((dynamicgraph::Vector&)*this)(2) = atan2(rot(1,0),rot(0,0));
   
   sotDEBUGOUT(15) ;

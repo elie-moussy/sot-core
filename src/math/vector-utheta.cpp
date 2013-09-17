@@ -20,7 +20,7 @@
 
 #include <sot/core/vector-utheta.hh>
 #include <sot/core/debug.hh>
-using namespace std;
+
 using namespace dynamicgraph::sot;
 
 static const double ANGLE_MINIMUM = 0.0001;
@@ -33,7 +33,7 @@ fromMatrix( const MatrixRotation& rot )
   sotDEBUGIN(15) ;
   
   const dynamicgraph::Matrix& rotmat = rot;
-  double sina = sqrt( (rotmat(1,0)-rotmat(0,1))*(rotmat(1,0)-rotmat(0,1))
+  double sina = std::sqrt( (rotmat(1,0)-rotmat(0,1))*(rotmat(1,0)-rotmat(0,1))
 		      + (rotmat(2,0)-rotmat(0,2))*(rotmat(2,0)-rotmat(0,2))
 		      + (rotmat(2,1)-rotmat(1,2))*(rotmat(2,1)-rotmat(1,2)) ) / 2.;
   double cosa = (rotmat(0,0)+rotmat(1,1)+rotmat(2,2)-1.0)/2.0;
@@ -49,13 +49,13 @@ fromMatrix( const MatrixRotation& rot )
     }
   else /* theta near PI */
     {
-      ((dynamicgraph::Vector&)*this)(0) = theta*(sqrt((rotmat(0,0)-cosa)/(1-cosa)));
+      ((dynamicgraph::Vector&)*this)(0) = theta*(std::sqrt((rotmat(0,0)-cosa)/(1-cosa)));
       if( (rotmat(2,1)-rotmat(1,2))<0 ) { ((dynamicgraph::Vector&)*this)(0) = -((dynamicgraph::Vector&)*this)(0); }
 
-      ((dynamicgraph::Vector&)*this)(1) = theta*(sqrt((rotmat(1,1)-cosa)/(1-cosa)));
+      ((dynamicgraph::Vector&)*this)(1) = theta*(std::sqrt((rotmat(1,1)-cosa)/(1-cosa)));
       if( (rotmat(0,2)-rotmat(2,0))<0 ) { ((dynamicgraph::Vector&)*this)(1) = -((dynamicgraph::Vector&)*this)(1); }
 
-      ((dynamicgraph::Vector&)*this)(2) = theta*(sqrt((rotmat(2,2)-cosa)/(1-cosa)));
+      ((dynamicgraph::Vector&)*this)(2) = theta*(std::sqrt((rotmat(2,2)-cosa)/(1-cosa)));
       if( (rotmat(1,0)-rotmat(0,1))<0 ) { ((dynamicgraph::Vector&)*this)(2) = -((dynamicgraph::Vector&)*this)(2); }
     }
   
@@ -69,7 +69,7 @@ toMatrix( MatrixRotation& rot ) const
 {
   sotDEBUGIN(15) ;
 
-  double theta = sqrt( ((dynamicgraph::Vector&)*this)(0)*((dynamicgraph::Vector&)*this)(0)
+  double theta = std::sqrt( ((dynamicgraph::Vector&)*this)(0)*((dynamicgraph::Vector&)*this)(0)
   			+((dynamicgraph::Vector&)*this)(1)*((dynamicgraph::Vector&)*this)(1)
   			+((dynamicgraph::Vector&)*this)(2)*((dynamicgraph::Vector&)*this)(2) );
   double si = ::sin(theta);
